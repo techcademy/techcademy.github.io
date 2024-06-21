@@ -18,7 +18,7 @@ export default function Layout({ children }) {
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark p-3">
         <div className="container-fluid">
           <a className="navbar-brand" href="#" onClick={() => router.push('/')}> 
-            <img src="/logo.png" alt="Logo" width="160" height="70" className="d-inline-block align-top" />
+            <img src="/logo.png" alt="Logo" width="120" height="45" className="d-inline-block align-top" />
           </a>
           <button className="btn btn-primary me-3" onClick={() => router.push('/')}>Home</button>
           <div className="dropdown">
