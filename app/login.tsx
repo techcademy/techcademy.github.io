@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Text, View, Button, TextInput, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import { signIn, resetPassword } from '../utils/firebaseSetup';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -12,7 +12,6 @@ export default function LoginPage() {
     try {
       await signIn(email, password);
       alert('Login Successful!');
-      // Navigate to home page
       router.push('/');
     } catch (error) {
       alert('Login Failed!');
@@ -29,49 +28,32 @@ export default function LoginPage() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-      <Button title="Login" onPress={handleSignIn} />
-      <Text style={styles.forgotPassword} onPress={handlePasswordReset}>
-        Forgot Password?
-      </Text>
-    </View>
+    <div className="container text-center">
+      <h1 className="my-4">Login</h1>
+      <div className="mb-3">
+        <input
+          type="email"
+          className="form-control"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+      </div>
+      <div className="mb-3">
+        <input
+          type="password"
+          className="form-control"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </div>
+      <button className="btn btn-primary" onClick={handleSignIn}>Login</button>
+      <div className="mt-3">
+        <span className="text-primary" style={{ cursor: 'pointer' }} onClick={handlePasswordReset}>
+          Forgot Password?
+        </span>
+      </div>
+    </div>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  input: {
-    width: '80%',
-    padding: 10,
-    margin: 10,
-    borderWidth: 1,
-  },
-  forgotPassword: {
-    color: 'blue',
-    marginTop: 10,
-    textDecorationLine: 'underline',
-  },
-});

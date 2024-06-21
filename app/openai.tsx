@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Button, StyleSheet, TextInput } from 'react-native';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 interface State {
   loading: boolean;
@@ -53,70 +53,34 @@ export default function OpenAIPage() {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.main}>
-        <Text style={styles.title}>Expo App Idea Generator</Text>
+    <div className="container text-center">
+      <div className="my-4">
+        <h1 className="mb-4">Expo App Idea Generator</h1>
 
-        <TextInput
+        <textarea
           value={input}
-          style={{
-            minHeight: 120,
-            borderWidth: 1,
-            padding: 8,
-          }}
-          onChange={(e) => setInput(e.nativeEvent.text)}
+          className="form-control mb-4"
+          onChange={(e) => setInput(e.target.value)}
           rows={4}
-          placeholderTextColor={"#9CA3AF"}
           placeholder="e.g. AI app idea generator."
         />
 
-        <Button
-          disabled={loading}
-          onPress={() => generateContent()}
-          title={loading ? "Loading..." : "Generate"}
-        />
+        <button className="btn btn-primary mb-4" disabled={loading} onClick={generateContent}>
+          {loading ? "Loading..." : "Generate"}
+        </button>
 
-        {content != null && (
+        {content && (
           <>
-            <Text style={styles.subtitle}>Generated Ideas:</Text>
+            <h2 className="mb-4">Generated Ideas:</h2>
             {content.map(({ name, description }, index) => (
-              <View key={String(index)}>
-                <Text style={styles.title}>{name}</Text>
-                <Text>{description}</Text>
-              </View>
+              <div key={index} className="mb-3">
+                <h3>{name}</h3>
+                <p>{description}</p>
+              </div>
             ))}
           </>
         )}
-      </View>
-    </View>
+      </div>
+    </div>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "stretch",
-    justifyContent: "center",
-    marginHorizontal: "auto",
-  },
-  main: {
-    flex: 1,
-    gap: 8,
-    justifyContent: "center",
-    alignItems: "stretch",
-    maxWidth: 640,
-    paddingHorizontal: 24,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  subtitle: {
-    fontSize: 24,
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
-  },
-});

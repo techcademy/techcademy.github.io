@@ -1,39 +1,24 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import { useRouter, Slot } from 'expo-router';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function Layout({ children }) {
   const router = useRouter();
-
   return (
-    <View style={styles.container}>
-      <View style={styles.navbar}>
-        <Button title="Home" onPress={() => router.push('/')} />
-        <Button title="Login" onPress={() => router.push('/login')} />
-        <Button title="Sign Up" onPress={() => router.push('/signup')} />
-        <Button title="OpenAI" onPress={() => router.push('/openai')} />
-      </View>
-      <View style={styles.content}>
+    <div className="d-flex flex-column vh-100">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div className="container-fluid">
+          <button className="btn btn-primary me-2" onClick={() => router.push('/')}>Home</button>
+          <button className="btn btn-primary me-2" onClick={() => router.push('/login')}>Login</button>
+          <button className="btn btn-primary me-2" onClick={() => router.push('/signup')}>Sign Up</button>
+          <button className="btn btn-primary" onClick={() => router.push('/openai')}>OpenAI</button>
+        </div>
+      </nav>
+      <main className="flex-grow-1 d-flex justify-content-center align-items-center">
         <Slot />
         {children}
-      </View>
-    </View>
+      </main>
+    </div>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  navbar: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    padding: 10,
-    backgroundColor: '#f8f8f8',
-    borderBottomWidth: 1,
-  },
-  content: {
-    flex: 1,
-    padding: 10,
-  },
-});

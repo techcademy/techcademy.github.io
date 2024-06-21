@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Text, View, Button, TextInput, StyleSheet } from 'react-native';
 import { resetPassword } from '../utils/firebaseSetup';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function ResetPasswordPage() {
   const [email, setEmail] = useState('');
@@ -15,34 +15,18 @@ export default function ResetPasswordPage() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Reset Password</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-      />
-      <Button title="Reset Password" onPress={handlePasswordReset} />
-    </View>
+    <div className="container text-center">
+      <h1 className="my-4">Reset Password</h1>
+      <div className="mb-3">
+        <input
+          type="email"
+          className="form-control"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+      </div>
+      <button className="btn btn-primary" onClick={handlePasswordReset}>Reset Password</button>
+    </div>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  input: {
-    width: '80%',
-    padding: 10,
-    margin: 10,
-    borderWidth: 1,
-  },
-});
